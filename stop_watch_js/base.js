@@ -10,6 +10,7 @@
   var elapsedTime = 0;
   var timeToAdd = 0;
   var timerId;
+  var isRunning = false;
 
   function updateTimeText() {
    var m =  Math.floor(elapsedTime / 60000);
@@ -31,17 +32,37 @@
     }, 10);
   }
 
+  // start.className = '';
+  // stop.className = 'inActive';
+  // reset.className = 'inActive';
+
+  function updateBtnState(startBtnState, stopBtnState, resetBtnState) {
+    start.className = startBtnState ? '' : 'inActive';
+    stop.className = stopBtnState ? '' : 'inActive';
+    reset.className = resetBtnState ? '' : 'inActive';
+  }
+
+  updateBtnState(true, false, false);
+
   start.addEventListener('click', function(){
+    if (isRunning) return;
+    updateBtnState(false, true, false);
+    isRunning = true;
     startTime = Date.now();
     countUp();
   });
 
   stop.addEventListener('click', function(){
+    if (!isRunning) return;
+    updateBtnState(true, false, true);
+    isRunning = false;
     clearTimeout(timerId);
     timeToAdd += Date.now() - startTime;
   });
 
   reset.addEventListener('click', function(){
+    if (isRunning) return;
+    updateBtnState(true, false, false);
     elapsedTime = 0;
     timeToAdd = 0;
     updateTimeText();
