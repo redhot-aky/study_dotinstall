@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+  //test
 
   var timer = document.getElementById('timer');
   var min = document.getElementById('min');
