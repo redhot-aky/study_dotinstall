@@ -54,6 +54,10 @@ body {
   font-size: 40px;
 }
 
+.slot .panel ul li.unmatched {
+  opacity: 0.3;
+}
+
 .slot .panel .stop {
   margin: 0 auto;
   font-size: 10px;
@@ -70,6 +74,10 @@ body {
   box-shadow: 0 2px 0 rgba(0,0,0,0.2);
 }
 
+.slot .panel .stop.inActive {
+  background: #ccc;
+}
+
 #spin {
   padding: 15px;
   background: #333;
@@ -78,4 +86,8 @@ body {
   text-align: center;
   border-radius: 10px;
   cursor: pointer;
+}
+
+#spin.inActive {
+  background: #ccc;
 }
