@@ -4,6 +4,9 @@
   var cards = document.getElementById('cards');
   var check = document.getElementById('check');
   var retry = document.getElementById('retry');
+  var userName = document.getElementById('user_name');
+
+  userName.focus();
 
   check.addEventListener('click', function() {
     var msgs = [
@@ -26,9 +29,25 @@
     var job = getRandomElement(jobs);
     var type = getRandomElement(types);
 
-    console.log(msg);
-    console.log(job.name);
-    console.log(type.name);
+    var resultImg = document.getElementById('result_img');
+    var tweet = document.getElementById('tweet');
+
+    if(userName.value === '' || userName.value.length > 10) {
+      userName.value = '名無し';
+    }
+
+    var tweetUrl = 'https://twitter.com/intent/tweet?text=' +
+    encodeURIComponent(
+      userName.value + 'さんは' + msg + job.name + 'でした！'
+    ) + '&hashtags=dotinstall';
+
+    setTextContent('result_name', userName.value);
+    setTextContent('result_msg', msg);
+    setTextContent('result_job', job.name);
+    resultImg.children[0].src = 'images/' + job.img;
+    setTextContent('result_type', type.name);
+    resultImg.className = 'leftSide ' + type.img;
+    tweet.href = tweetUrl;
 
     function getRandomElement(array) {
       return array[Math.floor(Math.random() * array.length)];
@@ -42,5 +61,7 @@
 
   retry.addEventListener('click', function() {
     cards.className = '';
+    userName.value = '';
+    userName.focus();
   });
 })();

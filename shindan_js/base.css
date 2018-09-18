@@ -84,3 +84,37 @@ img {
   cursor: pointer;
   box-shadow:  0 2px 0 rgba(0,0,0,0.2);
 }
+
+.retry .rightSide ul {
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.retry .rightSide ul li {
+  margin-bottom: 0.5em;
+}
+
+.retry .rightSide ul li span {
+  font-weight: bold;
+}
+
+.retry .rightSide .btn {
+  margin-bottom: 20px;
+  display: block;
+}
+
+.retry .bg-fire {
+  background: url(images/bg-fire.gif) no-repeat 0 0;
+  background-size: cover;
+}
+
+.retry .bg-water {
+  background: url(images/bg-water.gif) no-repeat 0 0;
+  background-size: cover;
+}
+
+.retry .bg-thunder {
+  background: url(images/bg-thunder.gif) no-repeat 0 0;
+  background-size: cover;
+}
