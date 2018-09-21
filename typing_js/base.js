@@ -17,6 +17,7 @@
   var miss;
   var timer;
   var openingTimer;
+  var openingTimerId;
   var info = document.getElementById('info');
   var msg = document.getElementById('msg');
   var target = document.getElementById('target');
@@ -27,12 +28,14 @@
   var timerId;
 
   function init() {
-    currentWord = 'CLICK TO START';
+    currentWord = words[Math.floor(Math.random() * words.length)];
     currentLocation = 0;
     score = 0;
     miss = 0;
     timer = 10 * 100;
     openingTimer = 3;
+    msg.textContent = 'CLICK TO START';
+    msg.className = '';
     target.textContent = currentWord;
     scoreLabel.textContent = score;
     missLabel.textContent = miss;
@@ -48,6 +51,8 @@
       timerLabel.textContent = formatTimer(timer);
       if(timer <= 0) {
         clearTimeout(timerId);
+        console.log('end');
+        result();
         return;
       }
       updateTimer();
@@ -66,23 +71,30 @@
     currentLocation = 0;
   }
 
-  function openingCountdown() {
-    var openingCountdownId = setTimeout(function() {
+  function opening() {
+    openingTimerId = setTimeout(function () {
       openingTimer--;
       msg.textContent = openingTimer + ' SECOND TO START';
-      openingCountdown();
-      if(openingTimer < 0) {
-        clearTimeout(openingCountdownId);
+      opening();
+      if (openingTimer < 0) {
+        clearTimeout(openingTimerId);
         info.className = 'info is-open';
+        isStarted = true;
+        updateTimer();
       }
     }, 1000);
+  }
+
+  function result() {
+    init();
+    info.className = 'info';
   }
 
   info.addEventListener('click', function() {
     msg.className = 'is-show';
     setTimeout(function() {
       msg.textContent = openingTimer + ' SECOND TO START';
-      openingCountdown();
+      opening();
     }, 500);
   });
 
