@@ -56,6 +56,10 @@ body {
   font-size: 50px;
 }
 
+.typing .info #result {
+  margin-bottom: 20px;
+}
+
 .typing .info #msg {
   position: relative;
   overflow: hidden;

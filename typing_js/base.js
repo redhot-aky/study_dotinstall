@@ -24,6 +24,7 @@
   var scoreLabel = document.getElementById('score');
   var missLabel = document.getElementById('miss');
   var timerLabel = document.getElementById('timer');
+  var resultLabel = document.getElementById('result');
   var isStarted = false;
   var timerId;
 
@@ -51,7 +52,6 @@
       timerLabel.textContent = formatTimer(timer);
       if(timer <= 0) {
         clearTimeout(timerId);
-        console.log('end');
         result();
         return;
       }
@@ -86,8 +86,9 @@
   }
 
   function result() {
-    init();
     info.className = 'info';
+    resultLabel.textContent = 'SCORE:' + score + ' MISS:' + miss;
+    init();
   }
 
   info.addEventListener('click', function() {
