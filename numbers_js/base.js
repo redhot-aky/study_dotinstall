@@ -13,15 +13,22 @@
 
   var board = document.getElementById('board');
   var btn = document.getElementById('btn');
+  var score = document.getElementById('score');
 
   var SIZE = 3;
   var currentNum = 0;
+  var startTime;
+  var timerId;
   
 
   function initBoard() {
     var i;
     var panels = [];
     var panel;
+
+    while(board.firstChild) {
+      board.removeChild(board.firstChild);
+    }
 
     for (i = 0; i <  SIZE * SIZE; i++) {
       panels.push(createPanel(i));
@@ -31,6 +38,13 @@
       panel = panels.splice(Math.floor(Math.random() * panels.length), 1);
       board.appendChild(panel[0]);
     }
+  }
+
+  function runTimer() {
+    score.textContent = ((Date.now() - startTime) / 1000).toFixed(2);
+    timerId = setTimeout(function(){
+      runTimer();
+    }, 10)
   }
 
   function createPanel(num) {
@@ -43,6 +57,9 @@
         this.className = 'panel flipped';
         currentNum++;
       }
+      if(currentNum === SIZE * SIZE) {
+        clearTimeout(timerId);
+      }
     })
     return panel;
   }
@@ -52,12 +69,18 @@
   btn.addEventListener('click', function() {
     var panels = document.getElementsByClassName('panel');
     var i;
+    if(typeof timerId !== 'undefined') {
+      clearTimeout(timerId);
+    }
+    currentNum = 0;
     initBoard();
     for (i = 0; i < panels.length; i++){
       panels[i].className = 'panel';
     }
     btn.textContent = 'RESTART?';
     btn.className = 'restart';
+    startTime = Date.now();
+    runTimer();
   })
 
   
